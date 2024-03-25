@@ -1,6 +1,7 @@
 package org.senechka.lab1.config;
 
 import io.micrometer.common.lang.NonNullApi;
+import lombok.NonNull;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;

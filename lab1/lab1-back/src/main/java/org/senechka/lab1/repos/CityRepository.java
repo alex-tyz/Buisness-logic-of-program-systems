@@ -8,5 +8,4 @@ import java.util.UUID;
 
 @Repository
 public interface CityRepository extends CassandraRepository<City, UUID> {
-    // Здесь могут быть дополнительные методы для работы с городами в базе данных
 }
