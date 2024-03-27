@@ -1,7 +1,9 @@
 package org.senechka.lab1.service;
 
 import org.senechka.lab1.models.City;
+import org.senechka.lab1.models.Dates;
 import org.senechka.lab1.repos.CityRepository;
+import org.senechka.lab1.repos.TicketRepositiry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +26,7 @@ public class FlightService {
     public City getCurrentCity(String name){
         return cityRepository.findByName(name);
     }
+
+
 }
 
