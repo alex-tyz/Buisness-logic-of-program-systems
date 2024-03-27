@@ -18,8 +18,11 @@ public class FlightService {
     }
 
     public List<City> getCitiesForFlight() {
-        // Здесь может быть логика для получения списка городов для полета из базы данных
         return cityRepository.findAll();
+    }
+
+    public City getCurrentCity(String name){
+        return cityRepository.findByName(name);
     }
 }
 

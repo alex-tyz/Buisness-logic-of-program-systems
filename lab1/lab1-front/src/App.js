@@ -1,13 +1,20 @@
 import React from 'react';
-import Button from './Button';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Button, { ButtonPage } from './Button'; // Ваш компонент с кнопкой и списком городов
+import Booking from './Booking'; // Ваш компонент для бронирования дат
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <h1>Flight Booking App</h1>
-      <Button />
-    </div>
+    
+    <Router>
+      <div>
+        <Routes>  
+          <Route exact path="/" element={<Button />} />
+          <Route path="/booking/:city" element={<Booking />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;

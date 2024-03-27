@@ -1,47 +1,71 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Button = () => {
   const [cities, setCities] = useState([]);
-  const [topCities, setTopCities] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Получение всех городов при монтировании компонента
-    fetchCities();
+    // Получение ТОП 5 городов при монтировании компонента
+    fetchTopCities();
   }, []);
 
-  const fetchCities = () => {
-    axios.get('http://localhost:8080/api/cities')
+  const fetchTopCities = () => {
+    axios.get('http://localhost:8080/api/cities/top')
       .then(response => {
         setCities(response.data);
-        // Вызов функции для получения ТОП 5 городов по рейтингу
-        getTopCities(response.data);
       })
       .catch(error => {
-        console.error('Error fetching cities:', error);
+        console.error('Error fetching top cities:', error);
+        setError('Failed to fetch top cities');
       });
   };
 
-  const getTopCities = (cities) => {
-    // Сортировка городов по рейтингу
-    const sortedCities = cities.sort((a, b) => b.rating - a.rating);
-    // Получение первых 5 городов
-    const topFive = sortedCities.slice(0, 5);
-    setTopCities(topFive);
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
   };
 
-  const handleClick = () => {
-    // Обновление списка городов при нажатии кнопки
-    fetchCities();
+  const handleSearchCity = () => {
+    if (!searchQuery) {
+      setError('Please enter a city name');
+      return;
+    }
+
+    axios.get(`http://localhost:8080/api/cities/${searchQuery}`)
+      .then(response => {
+        setSelectedCity(response.data);
+        setError(null);
+      })
+      .catch(error => {
+        console.error('Error searching city:', error);
+        setError('City not found');
+      });
   };
 
   return (
     <div>
-      <button onClick={handleClick}>Get Cities</button>
+      <div>
+        <input type="text" value={searchQuery} onChange={handleSearchChange} />
+        <button onClick={handleSearchCity}>Search City</button>
+      </div>
+      {selectedCity && (
+        <div>
+          <h2>Selected City</h2>
+          <p>Name: {selectedCity.name}</p>
+          <p>Rating: {selectedCity.rating}</p>
+        </div>
+      )}
+      {error && <div>Error: {error}</div>}
+      <h2>Top 5 Cities</h2>
       <ul>
-        {/* Вывод ТОП 5 городов */}
-        {topCities.map(city => (
-          <li key={city.id}>{city.name} {city.rating}</li>
+        {cities.map(city => (
+          <li key={city.id}>
+            {/* Ссылка для открытия нового окна с бронированием */}
+            <Link to={`/booking/${city.name}`}>{city.name} - {city.rating}</Link>
+          </li>
         ))}
       </ul>
     </div>
