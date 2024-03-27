@@ -1,12 +1,17 @@
 import React from 'react';
+import { useCart } from './CartContext'; // Импортируем хук для работы с корзиной
 
-const Cart = ({ cartItems }) => {
+const Cart = () => {
+  const { cart } = useCart(); // Получаем доступ к состоянию корзины через хук
+console.log(cart);
   return (
     <div>
-      <h2>Cart</h2>
+      <h2>Shopping Cart</h2>
       <ul>
-        {cartItems.map((item, index) => (
-          <li key={index}>{item.date} - {item.fromCity} to {item.toCity} - ${item.cost}</li>
+        {cart.map((item, index) => ( // Используем index в качестве ключа
+          <li key={index}>
+            from {item.fromCity} to {item.toCity} at {item.date} - ${item.cost}
+          </li>
         ))}
       </ul>
     </div>

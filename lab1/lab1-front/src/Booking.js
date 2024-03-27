@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useHistory } from 'react';
 import axios from 'axios';
 import Cart from './Cart';
+import { useCart } from './CartContext';
 
 const Booking = ({ city }) => {
   const [dates, setDates] = useState([]);
-  const [cart, setCart] = useState([]);
+  
+  const { addToCart } = useCart();
   const history = useHistory;
 
   useEffect(() => {
@@ -21,11 +23,6 @@ const Booking = ({ city }) => {
       });
   };
 
-  const addToCart = (date) => {
-    setCart([...cart, date]);
-  };
-
-
 
   return (
     <div>
@@ -41,7 +38,7 @@ const Booking = ({ city }) => {
           </li>
         ))}
       </ul>
-      <Cart cartItems={cart} />
+      <Cart />
     </div>
   );
 };
