@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -21,4 +22,10 @@ public class BookingController {
     public List<Dates> getAvailableDates(@PathVariable String city) {
         return bookingService.getTicketsFromCity(city);
     }
+
+    @GetMapping("/booking/{city}/buy/{id}")
+    public void setTicketUnavaible(@PathVariable String city, @PathVariable UUID id) {
+        bookingService.setTicketUnavaible(id);
+    }
+
 }

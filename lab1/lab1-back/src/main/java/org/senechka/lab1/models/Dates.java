@@ -8,6 +8,7 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.sql.Date;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -16,7 +17,7 @@ import java.sql.Date;
 public class Dates {
 
     @PrimaryKey
-    private String id;
+    private UUID id;
 
     @Column
     private Date date;

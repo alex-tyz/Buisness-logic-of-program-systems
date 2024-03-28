@@ -12,4 +12,7 @@ import java.util.UUID;
 public interface CityRepository extends CassandraRepository<City, UUID> {
     @Query("SELECT * FROM city WHERE name = :name ALLOW FILTERING")
     City findByName(@Param("name") String name);
+
+    @Query("SELECT * FROM city WHERE rating > :min AND rating < :max ALLOW FILTERING")
+    City findByRating(@Param("min") float min, @Param("max") float max);
 }

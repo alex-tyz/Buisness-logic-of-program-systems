@@ -1,13 +1,8 @@
 import React, { useEffect, useState, useHistory } from 'react';
 import axios from 'axios';
-import Cart from './Cart';
-import { useCart } from './CartContext';
 
 const Booking = ({ city }) => {
   const [dates, setDates] = useState([]);
-  
-  const { addToCart } = useCart();
-  const history = useHistory;
 
   useEffect(() => {
     fetchDatesForCity(city);
@@ -22,7 +17,43 @@ const Booking = ({ city }) => {
         console.error('Error fetching dates:', error);
       });
   };
-
+  const addToCart = (cityName, date, cost) => {
+    axios.get(`http://localhost:8080/api/booking/${cityName}/buy/${date.id}`)
+      .then(response => {
+        
+        console.log(`Buy ${cityName}`);
+      })
+      .catch(error => {
+        console.log(`error buying ${cityName}`);
+      });
+  };
+  const handlePayment = async (city, date, cost) => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/payment', null, {
+        params: {
+          city: city,
+          date: date,
+          cost: cost
+        },
+        responseType: 'arraybuffer'
+      });
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+  
+      const url = window.URL.createObjectURL(blob);
+  
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'ticket.pdf';
+      link.click();
+      window.URL.revokeObjectURL(url);
+  
+      alert('Payment successful! Your ticket has been downloaded.');
+    } catch (error) {
+      console.error('Error processing payment:', error);
+      alert('Error processing payment. Please try again later.');
+    }
+  };
+  
 
   return (
     <div>
@@ -34,11 +65,10 @@ const Booking = ({ city }) => {
         {dates.map(date => (
           <li key={date.id}>
             Date: {date.date}, From: {date.fromCity}, To: {date.toCity}, Cost: {date.cost}, Free: {date.free ? 'Yes' : 'No'}
-            <button onClick={() => addToCart(date)}>Buy</button>
+            {date.free && <button onClick={() => handlePayment(date.fromCity, date.date, date.cost)}>Buy</button>}
           </li>
         ))}
       </ul>
-      <Cart />
     </div>
   );
 };

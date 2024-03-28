@@ -5,6 +5,7 @@ import org.senechka.lab1.repos.TicketRepositiry;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class BookingService {
@@ -17,4 +18,6 @@ public class BookingService {
     public List<Dates> getTicketsFromCity(String city){
         return ticketRepositiry.findByName(city);
     }
+
+    public void setTicketUnavaible(UUID id){ ticketRepositiry.setUnableToBuyTicket(id);}
 }
