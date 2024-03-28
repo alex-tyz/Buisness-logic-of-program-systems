@@ -6,6 +6,7 @@ import org.springframework.data.cassandra.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -14,5 +15,5 @@ public interface CityRepository extends CassandraRepository<City, UUID> {
     City findByName(@Param("name") String name);
 
     @Query("SELECT * FROM city WHERE rating > :min AND rating < :max ALLOW FILTERING")
-    City findByRating(@Param("min") float min, @Param("max") float max);
+    List<City> findByRating(@Param("min") float min, @Param("max") float max);
 }

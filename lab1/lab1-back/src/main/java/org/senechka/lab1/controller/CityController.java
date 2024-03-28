@@ -24,4 +24,9 @@ public class CityController {
     public City getCityByName(@PathVariable String name) {
         return cityService.getCurrentCity(name);
     }
+
+    @GetMapping("/cities/{ratingM}/{ratingL}")
+    public List<City> getCitiesByRating(@PathVariable float ratingM, @PathVariable float ratingL) {
+        return cityService.getCitiesByRating(ratingM, ratingL);
+    }
 }

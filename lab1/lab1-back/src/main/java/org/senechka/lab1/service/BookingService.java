@@ -20,4 +20,8 @@ public class BookingService {
     }
 
     public void setTicketUnavaible(UUID id){ ticketRepositiry.setUnableToBuyTicket(id);}
+
+    public List<Dates> getTicketsToCity(String city) {return ticketRepositiry.findByDest(city); }
+
+    public List<Dates> getTicketsByCost(int costMax, int costMin) {return ticketRepositiry.findByCost(costMin, costMax); }
 }

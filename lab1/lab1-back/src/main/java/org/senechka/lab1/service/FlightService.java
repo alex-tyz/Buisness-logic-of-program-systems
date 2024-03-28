@@ -27,6 +27,8 @@ public class FlightService {
         return cityRepository.findByName(name);
     }
 
-
+    public List<City> getCitiesByRating(float raitingM, float ratingL) {
+        return cityRepository.findByRating(ratingL, raitingM);
+    }
 }
 

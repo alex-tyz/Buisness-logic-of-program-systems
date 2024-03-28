@@ -17,7 +17,7 @@ public interface TicketRepositiry extends CassandraRepository<Dates, String> {
     List<Dates> findByDest(@Param("name") String name);
 
     @Query("SELECT * FROM dates WHERE cost < :costLow and cost > :costHigh ALLOW FILTERING")
-    List<Dates> findByName(@Param("costLow") int costL, @Param("costHigh") int costH);
+    List<Dates> findByCost(@Param("costLow") int costL, @Param("costHigh") int costH);
 
     @Query("UPDATE dates set isfree = False WHERE id = :id")
     void setUnableToBuyTicket(@Param("id") UUID id);

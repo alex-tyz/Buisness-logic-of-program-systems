@@ -28,4 +28,13 @@ public class BookingController {
         bookingService.setTicketUnavaible(id);
     }
 
+    @GetMapping("/booking/{dest}")
+    public List<Dates> getTicketsByDest(@PathVariable String dest) {
+        return bookingService.getTicketsToCity(dest);
+    }
+
+    @GetMapping("/booking/{costL}/{costH}")
+    public List<Dates> getTicketsByCost(@PathVariable int costL, @PathVariable int costH) {
+        return bookingService.getTicketsByCost(costH, costL);
+    }
 }
