@@ -1,5 +1,6 @@
 package org.senechka.lab1.service;
 
+import org.senechka.lab1.exceptions.EmptyTownListException;
 import org.senechka.lab1.models.Dates;
 import org.senechka.lab1.repos.TicketRepositiry;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ public class BookingService {
     }
 
     public List<Dates> getTicketsFromCity(String city){
+        if (ticketRepositiry.findByName(city).isEmpty()){
+            throw new EmptyTownListException("There are no tickets from this city");
+        }
         return ticketRepositiry.findByName(city);
     }
 
