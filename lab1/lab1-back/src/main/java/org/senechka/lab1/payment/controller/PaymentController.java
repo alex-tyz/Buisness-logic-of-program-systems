@@ -1,6 +1,7 @@
 package org.senechka.lab1.payment.controller;
 
 import org.senechka.lab1.models.Dates;
+import org.senechka.lab1.models.UserTickets;
 import org.senechka.lab1.payment.service.PaymentService;
 import org.senechka.lab1.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,15 @@ public class PaymentController {
     @GetMapping("buy/startpay/{transactionid}")
     public String sendPaymentLink(@PathVariable String transactionid){
         return paymentService.startPaymentByLink(transactionid);
+    }
+
+    @GetMapping("buy/viewall/{userid}")
+    public List<UserTickets> getAllTransactions(@PathVariable String userid){
+        return paymentService.getAllUserTransactions(userid);
+    }
+
+    @GetMapping("buy/viewall/transactions/{transactionid}")
+    public UserTickets getCurrentTransation(@PathVariable UUID transactionid){
+        return paymentService.getCurrentTransaction(transactionid);
     }
 }

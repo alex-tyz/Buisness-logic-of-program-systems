@@ -35,7 +35,11 @@ public class PaymentService {
         return "https://cringebank.ru/pinus/payment/"+transactionid;
     }
 
-    public List<UserTickets> getAllUserTransactions(String name){
-        return userticktesRepository.getTransationByUser(name);
+    public List<UserTickets> getAllUserTransactions(String id){
+        return userticktesRepository.getTransactionByUser(id);
+    }
+
+    public UserTickets getCurrentTransaction(UUID transactionid){
+        return userticktesRepository.getTransaction(transactionid);
     }
 }

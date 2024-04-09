@@ -11,15 +11,15 @@ import java.util.List;
 import java.util.UUID;
 
 
-public interface UserticktesRepository extends CassandraRepository<Dates, String> {
+public interface UserticktesRepository extends CassandraRepository<UserTickets, String> {
     @Query("INSERT INTO usertickets (id, name, surname, ticketid, userid, vreify) VALUES (uuid(), :name, :surname, :ticketid, :userid, :verify)")
     void setTransaction(@Param("name") String name, @Param("surname") String surname, @Param("ticketid") String ticketid, @Param("userid") String userid, @Param("verify") String verify);
 
-    @Query("SELECT * FROM usertickets WHERE id = :id")
+    @Query("SELECT * FROM usertickets WHERE id = :id ALLOW FILTERING")
     UserTickets getTransaction(@Param("id") UUID id);
 
-    @Query("SELECT * FROM usertickets WHERE name = :name")
-    List<UserTickets> getTransationByUser(@Param("name") String name);
+    @Query("SELECT * FROM usertickets WHERE userid = :id ALLOW FILTERING")
+    List<UserTickets> getTransactionByUser(@Param("id") String id);
 
     @Query("INSERT INTO transaction (id, state, link) VALUES (:id, :state, :link)")
     void addTransaction(@Param("id") UUID id, @Param("state") String state, @Param("link") String link);
