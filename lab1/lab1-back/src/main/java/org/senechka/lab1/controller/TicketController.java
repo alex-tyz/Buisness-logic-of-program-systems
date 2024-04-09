@@ -8,13 +8,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.Date;
-
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "*", maxAge = 3600)
-public class PaymentController {
+public class TicketController {
 
     @Autowired
     private PdfService pdfService;

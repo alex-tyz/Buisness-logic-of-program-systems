@@ -1,8 +1,10 @@
+version: '3.0'
+
 services:
-  cassandra:
-    image: 'cassandra:latest'
-    environment:
-      - 'CASSANDRA_DC=dc1'
-      - 'CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch'
+  backend:
+    container_name: xyu
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - '9042'
+      - '8080:8080'

@@ -14,7 +14,11 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
     protected String getKeyspaceName() {
         return "blps";
     }
-
+/* server
+    @Override
+    protected String getContactPoints() {
+        return "cassandra/localhost";
+    }*/
     @Override
     protected String getContactPoints() {
         return "localhost";
@@ -24,4 +28,5 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
     protected int getPort() {
         return 9042;
     }
+
 }
