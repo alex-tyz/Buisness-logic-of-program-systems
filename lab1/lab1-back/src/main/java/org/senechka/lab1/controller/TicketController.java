@@ -1,5 +1,9 @@
 package org.senechka.lab1.controller;
 
+import org.senechka.lab1.models.Dates;
+import org.senechka.lab1.models.UserTickets;
+import org.senechka.lab1.payment.service.PaymentService;
+import org.senechka.lab1.service.BookingService;
 import org.senechka.lab1.service.PdfService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -7,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -16,10 +23,27 @@ public class TicketController {
     @Autowired
     private PdfService pdfService;
 
-    @PostMapping("/payment")
-    public ResponseEntity<byte[]> processPayment(@RequestParam String city, @RequestParam String date, @RequestParam int cost) {
+    @Autowired
+    private PaymentService paymentService;
+
+    @Autowired
+    private BookingService bookingService;
+
+    @PostMapping("/payment/{ticketid}")
+    public ResponseEntity<byte[]> processPayment(@PathVariable UUID ticketid) {
+
+
+        //UUID _ticketid = paymentService.getCurrentTicketById(ticketid).getTicketid();
+        String fromcity = bookingService.getTicketById(ticketid).getFromCity();
+        String tocity = bookingService.getTicketById(ticketid).getToCity();
+        String name = paymentService.getCurrentTransactionByTicketId(ticketid.toString()).getName();
+        String surname = paymentService.getCurrentTransactionByTicketId(ticketid.toString()).getSurname();
+        String date = bookingService.getTicketById(ticketid).getDate().toString();
+        int cost = bookingService.getTicketById(ticketid).getCost();
+
+
         // Генерируем PDF-билет
-        byte[] pdfBytes = pdfService.generateTicket(city, date, cost);
+        byte[] pdfBytes = pdfService.generateTicket(fromcity, tocity, name, surname, date, cost);
 
         // Устанавливаем заголовки ответа
         HttpHeaders headers = new HttpHeaders();

@@ -27,5 +27,5 @@ public class UserTickets {
     private String ticketid;
 
     @Column
-    private String verifyType;
+    private String mail;
 }

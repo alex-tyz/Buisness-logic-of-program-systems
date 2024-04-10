@@ -14,7 +14,7 @@ import java.util.Date;
 @Service
 public class PdfService {
 
-    public byte[] generateTicket(String city, String date, int cost) {
+    public byte[] generateTicket(String fromcity, String tocity, String name, String surname, String date, int cost) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PdfWriter writer = new PdfWriter(outputStream);
         PdfDocument pdf = new PdfDocument(writer);
@@ -25,7 +25,7 @@ public class PdfService {
         header.setFontColor(new DeviceRgb(0, 0, 255));
         document.add(header);
 
-        Paragraph ticketInfo = new Paragraph("City: " + city + "\nDate: " + date + "\nCost: " + cost);
+        Paragraph ticketInfo = new Paragraph("From City: " + fromcity +"\n"+  "To City: " + tocity +"\n" +"For: " + name +" " + surname + "\n" + "\nDate: " + date + "\nCost: " + cost);
         document.add(ticketInfo);
 
         document.close();

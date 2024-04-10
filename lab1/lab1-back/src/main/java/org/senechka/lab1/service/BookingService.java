@@ -27,5 +27,7 @@ public class BookingService {
 
     public List<Dates> getTicketsToCity(String city) {return ticketRepositiry.findByDest(city); }
 
+    public Dates getTicketById(UUID id) {return ticketRepositiry.findById(id); }
+
     public List<Dates> getTicketsByCost(int costMax, int costMin) {return ticketRepositiry.findByCost(costMin, costMax); }
 }

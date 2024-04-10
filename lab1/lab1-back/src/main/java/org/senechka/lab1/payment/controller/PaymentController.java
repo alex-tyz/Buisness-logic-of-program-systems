@@ -1,6 +1,7 @@
 package org.senechka.lab1.payment.controller;
 
 import org.senechka.lab1.models.Dates;
+import org.senechka.lab1.models.Transaction;
 import org.senechka.lab1.models.UserTickets;
 import org.senechka.lab1.payment.service.PaymentService;
 import org.senechka.lab1.service.BookingService;
@@ -20,8 +21,8 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @GetMapping("/buy/{ticketid}")
-    public void setTransaction(@RequestParam String userid, @PathVariable String ticketid, @RequestParam String name, @RequestParam String surname, @RequestParam String verify) {
-        paymentService.setCurrentTicket(name, surname, userid, ticketid, verify);
+    public void setTransaction(@RequestParam String userid, @PathVariable String ticketid, @RequestParam String name, @RequestParam String surname, @RequestParam String email) {
+        paymentService.setCurrentTicket(name, surname, userid, ticketid, email);
     }
 
     @GetMapping("buy/start/{transationid}")
@@ -40,7 +41,12 @@ public class PaymentController {
     }
 
     @GetMapping("buy/viewall/transactions/{transactionid}")
-    public UserTickets getCurrentTransation(@PathVariable UUID transactionid){
+    public Transaction getCurrentTransation(@PathVariable UUID transactionid){
         return paymentService.getCurrentTransaction(transactionid);
+    }
+
+    @GetMapping("/buy/check/{transactionid}")
+    public void checkTransaction(@PathVariable UUID transactionid, @RequestParam String link){
+        paymentService.setTransactionStatus(transactionid, link);
     }
 }

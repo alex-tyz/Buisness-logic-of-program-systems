@@ -2,8 +2,10 @@ package org.senechka.lab1.payment.service;
 
 import org.apache.catalina.User;
 import org.senechka.lab1.models.City;
+import org.senechka.lab1.models.Transaction;
 import org.senechka.lab1.models.UserTickets;
 import org.senechka.lab1.repos.CityRepository;
+import org.senechka.lab1.repos.TransanctionRepository;
 import org.senechka.lab1.repos.UserticktesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,14 +19,18 @@ import java.util.UUID;
 public class PaymentService {
 
     private final UserticktesRepository userticktesRepository;
+    private final TransanctionRepository transanctionRepository;
 
     @Autowired
-    public PaymentService(UserticktesRepository userticktesRepository) {
+    public PaymentService(UserticktesRepository userticktesRepository, TransanctionRepository transanctionRepository) {
         this.userticktesRepository = userticktesRepository;
+        this.transanctionRepository = transanctionRepository;
     }
 
-    public void setCurrentTicket(String name, String surname, String userid, String ticketid, String verify){
-        userticktesRepository.setTransaction(name, surname, ticketid, userid, verify);
+
+
+    public void setCurrentTicket(String name, String surname, String userid, String ticketid, String email){
+        userticktesRepository.setTransaction(name, surname, ticketid, userid, email);
     }
 
     public void addTransaction(UUID id, String state, String link){
@@ -39,7 +45,18 @@ public class PaymentService {
         return userticktesRepository.getTransactionByUser(id);
     }
 
-    public UserTickets getCurrentTransaction(UUID transactionid){
-        return userticktesRepository.getTransaction(transactionid);
+    public void setTransactionStatus(UUID transactionid, String link){
+        if (Math.random() * 100 < 70){
+            transanctionRepository.setTransactionStatusToProvided(transactionid);
+            transanctionRepository.setTransactionLink(transactionid, link);
+        } else {
+            transanctionRepository.setTransactionStatusToFailed(transactionid);
+        }
+    }
+    public UserTickets getCurrentTransactionByTicketId(String id){
+        return userticktesRepository.getTransactionById(id);
+    }
+    public Transaction getCurrentTransaction(UUID transactionid){
+        return transanctionRepository.getTransaction(transactionid);
     }
 }
