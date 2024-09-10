@@ -26,13 +26,11 @@ services:
 
   postgres:
     image: postgres
-    container_name: postgres_container
     environment:
-      POSTGRES_USER: 'gibon'
+      POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: 'zxc'
-      PGDATA: /var/lib/postgresql/data/some_name/
     volumes:
-      - .:/docker-entrypoint-initdb.d
+      - ./script:/docker-entrypoint-initdb.d
     ports:
       - "5430:5432"
 
