@@ -24,6 +24,4 @@ public interface UserticktesRepository extends CassandraRepository<UserTickets, 
 
     @Query("INSERT INTO transaction (id, state, link) VALUES (:id, :state, :link)")
     void addTransaction(@Param("id") UUID id, @Param("state") String state, @Param("link") String link);
-
-
 }
