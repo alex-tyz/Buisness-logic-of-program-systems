@@ -7,7 +7,9 @@ import org.senechka.lab1.models.User;
 import org.senechka.lab1.security.DTO.ResponseDTO;
 import org.senechka.lab1.security.DTO.SignInDTO;
 import org.senechka.lab1.security.DTO.SignUpDTO;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
