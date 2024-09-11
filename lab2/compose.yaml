@@ -11,6 +11,7 @@ services:
       - '9042'
     networks:
       - myNetwork
+
   backend:
     container_name: xyu
     build:
@@ -21,6 +22,7 @@ services:
     networks:
       - myNetwork
     depends_on:
+      - postgres
       - cassandra
     restart: always
 

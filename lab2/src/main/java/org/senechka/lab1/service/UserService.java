@@ -20,7 +20,7 @@ public class UserService {
     }
 
     public List<User> findAllUserByRole(String role) {
-        return userRepository.findAllByRolesName(Roles.valueOf(role));
+        return userRepository.findAllByRole(Roles.valueOf(role));
     }
 
     public User saveUser(User user) {
