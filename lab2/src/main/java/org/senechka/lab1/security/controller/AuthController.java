@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class AuthController {
+    @Autowired
     public AuthController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }
@@ -22,13 +23,15 @@ public class AuthController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/sign-up")
-    public ResponseDTO signUp(@RequestBody SignUpDTO request) {
-        return authenticationService.signUp(request);
+    public ResponseDTO signUp(@ModelAttribute SignUpDTO request) {
+        ResponseDTO xyu = authenticationService.signUp(request);
+        System.out.println("____________________________________________________"+xyu.toString()+"__________________\n\n");
+        return xyu;
     }
 
 
     @PostMapping("/sign-in")
-    public ResponseDTO signIn(@RequestBody SignInDTO request) {
+    public ResponseDTO signIn(@ModelAttribute SignInDTO request) {
         return authenticationService.signIn(request);
     }
 }

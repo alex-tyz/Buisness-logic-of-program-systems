@@ -12,6 +12,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -29,15 +31,17 @@ public class AuthenticationService {
     public ResponseDTO signUp(SignUpDTO request) {
 
         var user = User.builder()
+                .id(UUID.randomUUID())
                 .username(request.getUsername())
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPass()))
+                .password(passwordEncoder.encode(request.getPassword()))
                 .role(Roles.USER)
                 .build();
 
         userService.create(user);
 
         var jwt = jwtService.generateToken(user);
+        System.out.println("+++++++++++++++++++"+jwt.toString()+"++++++++++++++++++");
         return new ResponseDTO(jwt);
     }
 

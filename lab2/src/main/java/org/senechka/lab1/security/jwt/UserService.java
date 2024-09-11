@@ -32,12 +32,12 @@ public class UserService {
      * @return созданный пользователь
      */
     public User create(User user) {
-        if (repository. existsByUsername(user.getUsername())) {
+        if (repository.existsByUsername(user.getUsername()) == 1) {
             // Заменить на свои исключения
             throw new RuntimeException("Пользователь с таким именем уже существует");
         }
 
-        if (repository.existsByEmail(user.getEmail())) {
+        if (repository.existsByEmail(user.getEmail()) == 1) {
             throw new RuntimeException("Пользователь с таким email уже существует");
         }
 

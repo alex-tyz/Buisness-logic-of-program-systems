@@ -22,19 +22,8 @@ services:
     networks:
       - myNetwork
     depends_on:
-      - postgres
       - cassandra
     restart: always
-
-  postgres:
-    image: postgres
-    environment:
-      POSTGRES_USER: 'postgres'
-      POSTGRES_PASSWORD: 'zxc'
-    volumes:
-      - ./script:/docker-entrypoint-initdb.d
-    ports:
-      - "5430:5432"
 
 networks:
   myNetwork:

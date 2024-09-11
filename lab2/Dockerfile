@@ -8,7 +8,7 @@ VOLUME /tmp
 
 EXPOSE 8080
 
-ARG JAR_FILE=./target/lab2-0.0.8-SNAPSHOT.jar
+ARG JAR_FILE=./target/lab2-0.0.9-SNAPSHOT.jar
 
 ADD ${JAR_FILE} backend.jar
 ADD ./meow.sh ./meow.sh
