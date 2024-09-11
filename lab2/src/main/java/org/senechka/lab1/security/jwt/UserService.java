@@ -3,7 +3,7 @@ package org.senechka.lab1.security.jwt;
 import lombok.RequiredArgsConstructor;
 import org.senechka.lab1.models.Roles;
 import org.senechka.lab1.models.User;
-import org.senechka.lab1.repos.UserRepository;
+import org.senechka.lab1.security.repos.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

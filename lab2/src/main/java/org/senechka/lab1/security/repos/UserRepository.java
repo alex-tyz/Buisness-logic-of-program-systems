@@ -1,4 +1,4 @@
-package org.senechka.lab1.repos;
+package org.senechka.lab1.security.repos;
 
 import org.senechka.lab1.models.Roles;
 import org.senechka.lab1.models.User;
