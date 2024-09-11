@@ -1,5 +1,7 @@
 package org.senechka.lab1.models;
 
+
+import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.Id;
