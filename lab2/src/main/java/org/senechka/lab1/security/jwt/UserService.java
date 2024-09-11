@@ -1,6 +1,5 @@
 package org.senechka.lab1.security.jwt;
 
-import lombok.RequiredArgsConstructor;
 import org.senechka.lab1.models.Roles;
 import org.senechka.lab1.models.User;
 import org.senechka.lab1.security.repos.UserRepository;
@@ -10,9 +9,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
     private final UserRepository repository;
+
+    public UserService(UserRepository repository) {
+        this.repository = repository;
+    }
 
     /**
      * Сохранение пользователя

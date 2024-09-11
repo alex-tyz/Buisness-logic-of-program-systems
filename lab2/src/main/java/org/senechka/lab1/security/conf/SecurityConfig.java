@@ -27,7 +27,6 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-@EnableJpaRepositories("org.senechka.lab1.security.repos")
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
