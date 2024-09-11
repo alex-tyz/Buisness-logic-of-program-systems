@@ -37,4 +37,5 @@ public class BookingController {
     public List<Dates> getTicketsByCost(@PathVariable int costL, @PathVariable int costH) {
         return bookingService.getTicketsByCost(costH, costL);
     }
+
 }

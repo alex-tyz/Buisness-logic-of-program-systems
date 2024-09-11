@@ -3,6 +3,7 @@ package org.senechka.lab1.security.jwt;
 import lombok.RequiredArgsConstructor;
 import org.senechka.lab1.models.Roles;
 import org.senechka.lab1.models.User;
+import org.senechka.lab1.repos.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,7 +30,7 @@ public class UserService {
      * @return созданный пользователь
      */
     public User create(User user) {
-        if (repository.existsByUsername(user.getUsername())) {
+        if (repository. existsByUsername(user.getUsername())) {
             // Заменить на свои исключения
             throw new RuntimeException("Пользователь с таким именем уже существует");
         }
