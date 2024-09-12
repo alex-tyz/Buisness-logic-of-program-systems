@@ -3,6 +3,7 @@ package org.senechka.lab1.controller;
 import org.senechka.lab1.models.Dates;
 import org.senechka.lab1.models.UserTickets;
 import org.senechka.lab1.payment.service.PaymentService;
+import org.senechka.lab1.security.jwt.UserService;
 import org.senechka.lab1.service.BookingService;
 import org.senechka.lab1.service.PdfService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class TicketController {
     @Autowired
     private BookingService bookingService;
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/payment/{ticketid}")
     public ResponseEntity<byte[]> processPayment(@PathVariable UUID ticketid) {
 
@@ -51,5 +55,10 @@ public class TicketController {
         headers.setContentDispositionFormData("attachment", "ticket.pdf");
 
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+
+    @PostMapping("/setAdmin")
+    public void setAdminForUser(){
+        userService.getAdmin();
     }
 }

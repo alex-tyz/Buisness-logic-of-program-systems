@@ -1,6 +1,7 @@
 package org.senechka.lab1.security.conf;
 
 import lombok.RequiredArgsConstructor;
+import org.senechka.lab1.models.Roles;
 import org.senechka.lab1.security.jwt.JwtAuthenticationFilter;
 import org.senechka.lab1.security.jwt.UserService;
 import org.springframework.context.annotation.Bean;
@@ -45,9 +46,10 @@ public class SecurityConfig {
                 }))
                 // Настройка доступа к конечным точкам
                 .authorizeHttpRequests(request -> request
+
                         // Можно указать конкретный путь, * - 1 уровень вложенности, ** - любое количество уровней вложенности
                         .requestMatchers("/auth/**").permitAll()
-                        //.requestMatchers("/endpoint", "/admin/**").hasRole("ADMIN")
+                        .requestMatchers( "/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider())

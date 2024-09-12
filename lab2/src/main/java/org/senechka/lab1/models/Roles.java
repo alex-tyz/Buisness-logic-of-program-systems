@@ -1,7 +1,8 @@
 package org.senechka.lab1.models;
 
 public enum Roles {
-    ADMIN,
-    XYIN,
-    USER,
+    ROLE_ADMIN,
+    ROLE_USER;
+
+
 }

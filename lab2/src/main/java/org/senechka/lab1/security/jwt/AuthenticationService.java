@@ -35,13 +35,12 @@ public class AuthenticationService {
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Roles.USER)
+                .role(Roles.ROLE_USER)
                 .build();
 
         userService.create(user);
 
         var jwt = jwtService.generateToken(user);
-        System.out.println("+++++++++++++++++++"+jwt.toString()+"++++++++++++++++++");
         return new ResponseDTO(jwt);
     }
 
@@ -54,7 +53,7 @@ public class AuthenticationService {
     public ResponseDTO signIn(SignInDTO request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getUsername(),
-                request.getPass()
+                request.getPassword()
         ));
 
         var user = userService
@@ -62,6 +61,7 @@ public class AuthenticationService {
                 .loadUserByUsername(request.getUsername());
 
         var jwt = jwtService.generateToken(user);
+        System.out.println("+++++++++++++++++++"+jwt.toString()+"++++++++++++++++++");
         return new ResponseDTO(jwt);
     }
 }

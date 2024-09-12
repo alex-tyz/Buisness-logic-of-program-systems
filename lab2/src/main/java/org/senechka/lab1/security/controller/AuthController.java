@@ -22,16 +22,17 @@ public class AuthController {
     @Autowired
     private final AuthenticationService authenticationService;
 
-    @PostMapping("/sign-up")
+    @PostMapping("/signup")
     public ResponseDTO signUp(@ModelAttribute SignUpDTO request) {
         ResponseDTO xyu = authenticationService.signUp(request);
-        System.out.println("____________________________________________________"+xyu.toString()+"__________________\n\n");
         return xyu;
     }
 
 
-    @PostMapping("/sign-in")
+    @PostMapping("/signin")
     public ResponseDTO signIn(@ModelAttribute SignInDTO request) {
-        return authenticationService.signIn(request);
+        ResponseDTO xyu2 = authenticationService.signIn(request);
+        System.out.println("____________________________________________________"+xyu2.toString()+"__________________\n\n");
+        return xyu2;
     }
 }

@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class SignInDTO {
     private String username;
-    private String pass;
+    private String password;
 }
