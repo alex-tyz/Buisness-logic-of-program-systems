@@ -13,8 +13,8 @@ import java.util.UUID;
 
 
 public interface UserticktesRepository extends CassandraRepository<UserTickets, String> {
-    @Query("INSERT INTO usertickets (id, name, surname, ticketid, userid, email) VALUES (uuid(), :name, :surname, :ticketid, :userid, :email)")
-    void setTransaction(@Param("name") String name, @Param("surname") String surname, @Param("ticketid") String ticketid, @Param("userid") String userid, @Param("email") String email);
+    @Query("INSERT INTO usertickets (id, name, surname, ticketid, mail) VALUES (uuid(), :name, :surname, :ticketid, :mail)")
+    void setTransaction(@Param("name") String name, @Param("surname") String surname, @Param("ticketid") String ticketid,  @Param("mail") String mail);
 
     @Query("SELECT * FROM usertickets WHERE userid = :id ALLOW FILTERING")
     List<UserTickets> getTransactionByUser(@Param("id") String id);

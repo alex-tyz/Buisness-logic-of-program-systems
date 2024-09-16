@@ -21,8 +21,8 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @GetMapping("/buy/{ticketid}")
-    public void setTransaction(@RequestParam String userid, @PathVariable String ticketid, @RequestParam String name, @RequestParam String surname, @RequestParam String email) {
-        paymentService.setCurrentTicket(name, surname, userid, ticketid, email);
+    public void setTransaction(@PathVariable String ticketid, @RequestParam String name, @RequestParam String surname, @RequestParam String mail) {
+        paymentService.setCurrentTicket(name, surname, ticketid, mail);
     }
 
     @GetMapping("buy/start/{transationid}")

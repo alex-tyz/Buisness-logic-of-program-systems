@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -34,7 +35,7 @@ public class AdminService {
         adminRepository.setAdminById(id);
     }
 
-    public User getCurrentUserDetails(String username){
-        return adminRepository.getUserInformationByUsername(username);
+    public Optional<User> getCurrentUserDetails(String username){
+        return adminRepository.getUserByUsername(username);
     }
 }

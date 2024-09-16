@@ -29,8 +29,8 @@ public class PaymentService {
 
 
 
-    public void setCurrentTicket(String name, String surname, String userid, String ticketid, String email){
-        userticktesRepository.setTransaction(name, surname, ticketid, userid, email);
+    public void setCurrentTicket(String name, String surname,  String ticketid, String mail){
+        userticktesRepository.setTransaction(name, surname, ticketid, mail);
     }
 
     public void addTransaction(UUID id, String state, String link){

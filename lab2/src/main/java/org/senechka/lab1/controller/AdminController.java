@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -22,7 +23,7 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
-
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/getAllTicket")
     public List<UserTickets> getAllUserTickets(){
         return adminService.getAllTickets();
@@ -33,9 +34,15 @@ public class AdminController {
         adminService.setAdminForUser(id);
         userService.getAdmin();
     }
-
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/viewUserInformation")
-    public User getUserInformation(@ModelAttribute String username){
+    public Optional<User> getUserInformation(@ModelAttribute(value = "username") String username){
+        System.out.println(adminService.getCurrentUserDetails(username));
        return adminService.getCurrentUserDetails(username);
+    }
+
+    @GetMapping("/xyu")
+    public void xyu(){
+        System.out.println("P E N I S");
     }
 }

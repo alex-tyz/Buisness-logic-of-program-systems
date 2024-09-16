@@ -22,6 +22,11 @@ public class CityController {
         return cityService.getCitiesForFlight();
     }
 
+    @GetMapping("/xyu")
+    public void xyu(){
+        System.out.println("P E N I S");
+    }
+
     @GetMapping("/cities/{name}")
     public City getCityByName(@PathVariable String name) {
         return cityService.getCurrentCity(name);
