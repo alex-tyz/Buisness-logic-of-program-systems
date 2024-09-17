@@ -12,6 +12,18 @@ services:
     networks:
       - myNetwork
 
+
+  db:
+    container_name: databases
+    build:
+      context: ./databases
+      dockerfile: Dockerfile
+    ports:
+      - '8081:8081'
+    networks:
+      - myNetwork
+    depends_on:
+      - zookeeper
   backend:
     container_name: xyu
     build:
