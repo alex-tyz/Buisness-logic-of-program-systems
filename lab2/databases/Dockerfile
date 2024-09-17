@@ -6,7 +6,7 @@ LABEL maintainer="2262288@gmail.com"
 
 VOLUME /tmp
 
-EXPOSE 8081
+EXPOSE 5431
 
 ARG JAR_FILE=./target/databases-0.0.1-SNAPSHOT.jar
 
