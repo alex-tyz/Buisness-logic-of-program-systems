@@ -1,9 +1,11 @@
 package databases.postgres.archive.conf;
 
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 
-@EnableJpaRepositories
+@Configuration
+@EnableJdbcRepositories
 public class JpaConfiguration {
 
 }

@@ -21,8 +21,7 @@ services:
       POSTGRES_PASSWORD: "zxc"
     ports:
       - "5431:5432"
-    expose:
-      - '5431'
+
 
 
   archive:
@@ -34,8 +33,7 @@ services:
       POSTGRES_PASSWORD: "zxc"
     ports:
       - "5430:5432"
-    expose:
-      - '5430'
+
 
   actual_db:
     container_name: actual_db
@@ -43,7 +41,7 @@ services:
       context: ./databases
       dockerfile: Dockerfile
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://actual:5432/postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://actual:5432/actualdb
     ports:
       - '8082:8080'
     depends_on:
@@ -55,7 +53,7 @@ services:
       context: ./archive
       dockerfile: Dockerfile
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://archive:5432/postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://archive:5432/archivedb
     ports:
       - '8081:8080'
     depends_on:
@@ -75,6 +73,7 @@ services:
     restart: always
 
   zookeeper:
+    container_name: zookeeper
     image: confluentinc/cp-zookeeper:7.4.4
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
