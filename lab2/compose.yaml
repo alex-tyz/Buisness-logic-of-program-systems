@@ -21,6 +21,7 @@ services:
       POSTGRES_PASSWORD: "zxc"
     ports:
       - "5431:5432"
+
   archive:
     container_name: archive
     image: postgres:latest
@@ -30,10 +31,23 @@ services:
       POSTGRES_PASSWORD: "zxc"
     ports:
       - "5430:5432"
-  db:
-    container_name: databases
+
+  actual_db:
+    container_name: actual_db
     build:
       context: ./databases
+      dockerfile: Dockerfile
+    ports:
+      - '8082:8082'
+    networks:
+      - myNetwork
+    depends_on:
+      - zookeeper
+
+  archive_db:
+    container_name: archive_db
+    build:
+      context: ./archive
       dockerfile: Dockerfile
     ports:
       - '8081:8081'
@@ -41,6 +55,7 @@ services:
       - myNetwork
     depends_on:
       - zookeeper
+
   backend:
     container_name: xyu
     build:
@@ -53,6 +68,7 @@ services:
     depends_on:
       - cassandra
     restart: always
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.4.4
     environment:
