@@ -27,11 +27,13 @@ services:
 
   zookeeper:
     image: wurstmeister/zookeeper
+    container_name: zoo
     expose:
       - "2181"
 
   kafka:
     image: wurstmeister/zookeeper
+    container_name: alkafka
     ports:
       - "9092:9092"
     expose:
