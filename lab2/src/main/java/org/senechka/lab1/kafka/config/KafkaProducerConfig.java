@@ -16,14 +16,14 @@ import java.util.Map;
 public class KafkaProducerConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")
-    private String bootstrapServers;
+    private String bootstrapAddress;
 
     @Bean
     public ProducerFactory<String, String> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
 
         configProps.put(
-           //TODO: я хуй знает что за адрес     ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+          ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         configProps.put(
                 ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class);
