@@ -24,6 +24,7 @@ services:
     expose:
       - '5431'
 
+
   archive:
     container_name: archive
     image: postgres:latest
@@ -41,10 +42,10 @@ services:
     build:
       context: ./databases
       dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://actual:5432/postgres
     ports:
       - '8082:8080'
-    networks:
-      - myNetwork
     depends_on:
       - actual
 
@@ -53,10 +54,10 @@ services:
     build:
       context: ./archive
       dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://archive:5432/postgres
     ports:
       - '8081:8080'
-    networks:
-      - myNetwork
     depends_on:
       - archive
 
