@@ -8,13 +8,21 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 public class KafkaTopic {
 
+    //todo refactor dummy
     @Bean
-    public NewTopic topic1() {
-        return TopicBuilder.name("topic-1").build();
+    public NewTopic firstTopic() {
+        return TopicBuilder.name("topic-1")
+                .partitions(1)
+                .replicas(1)
+                .build();
     }
 
     @Bean
-    public NewTopic topic2() {
-        return TopicBuilder.name("topic-2").partitions(3).build();
+    public NewTopic secondTopic() {
+        return TopicBuilder.name("topic-2")
+                .partitions(3)
+                .replicas(1)
+                .build();
     }
+
 }
