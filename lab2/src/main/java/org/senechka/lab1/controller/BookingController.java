@@ -1,9 +1,11 @@
 package org.senechka.lab1.controller;
 
 import org.senechka.lab1.models.Dates;
+import org.senechka.lab1.models.Ticket;
 import org.senechka.lab1.repos.TicketRepositiry;
 import org.senechka.lab1.service.BookingService;
 import org.senechka.lab1.service.FlightService;
+import org.senechka.lab1.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,10 @@ public class BookingController {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private MessageService messageService;
+
     @GetMapping("/booking/{city}")
     public List<Dates> getAvailableDates(@PathVariable String city) {
         return bookingService.getTicketsFromCity(city);

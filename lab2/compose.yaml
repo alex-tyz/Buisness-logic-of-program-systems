@@ -23,6 +23,8 @@ services:
       - ./script/actual:/docker-entrypoint-initdb.d
     ports:
       - "5431:5432"
+    networks:
+      - myNetwork
 
 
 
@@ -37,6 +39,8 @@ services:
       - ./script/archive:/docker-entrypoint-initdb.d
     ports:
       - "5430:5432"
+    networks:
+      - myNetwork
 
 
   actual_db:
@@ -50,6 +54,9 @@ services:
       - '8082:8080'
     depends_on:
       - actual
+      - kafka
+    networks:
+      - myNetwork
 
   archive_db:
     container_name: archive_db
@@ -62,6 +69,9 @@ services:
       - '8081:8080'
     depends_on:
       - archive
+      - kafka
+    networks:
+      - myNetwork
 
   backend:
     container_name: xyu

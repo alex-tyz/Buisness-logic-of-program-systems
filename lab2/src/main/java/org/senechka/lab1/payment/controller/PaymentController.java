@@ -1,14 +1,17 @@
 package org.senechka.lab1.payment.controller;
 
-import org.senechka.lab1.models.Dates;
-import org.senechka.lab1.models.Transaction;
-import org.senechka.lab1.models.UserTickets;
+import org.senechka.lab1.models.*;
 import org.senechka.lab1.payment.service.PaymentService;
+import org.senechka.lab1.security.jwt.UserService;
 import org.senechka.lab1.service.BookingService;
+import org.senechka.lab1.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,9 +23,26 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
+    @Autowired
+    private BookingService bookingService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private MessageService messageService;
+
+    private static final long EXPIRE_TIME_SEC = 3 * 24 * 60 * 60;
     @GetMapping("/buy/{ticketid}")
-    public void setTransaction(@PathVariable String ticketid, @RequestParam String name, @RequestParam String surname, @RequestParam String mail) {
-        paymentService.setCurrentTicket(name, surname, ticketid, mail);
+    public void setTransaction(@PathVariable UUID ticketid, @RequestParam String name, @RequestParam String surname, @RequestParam String mail) {
+        paymentService.setCurrentTicket(name, surname, ticketid.toString(), mail);
+        Dates ticket = bookingService.getTicketById(ticketid);
+        User user = userService.getByUsername(name);
+        Ticket tickettosend = new Ticket(null, user.getId(),
+                ticket.getId(), ticket.getFromCity(),
+                ticket.getToCity(), ticket.getCost(),
+                Date.from(Instant.now().plusSeconds(EXPIRE_TIME_SEC)));
+        messageService.sendTicketToActual(tickettosend);
     }
 
     @GetMapping("buy/start/{transationid}")

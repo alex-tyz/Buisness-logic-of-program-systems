@@ -1,5 +1,6 @@
 package org.senechka.lab1.controller;
 
+import org.senechka.lab1.kafka.sender.KafkaSender;
 import org.senechka.lab1.models.Dates;
 import org.senechka.lab1.models.User;
 import org.senechka.lab1.models.UserTickets;
@@ -22,11 +23,19 @@ public class AdminController {
     private AdminService adminService;
 
     @Autowired
+    private KafkaSender kafkaSender;
+
+    @Autowired
     private UserService userService;
     //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/getAllTicket")
     public List<UserTickets> getAllUserTickets(){
         return adminService.getAllTickets();
+    }
+
+    @GetMapping("/kafkaSend")
+    public void messageWork(){
+        kafkaSender.sendMessage("123xyu", "actual");
     }
     //хз как по умному
     @PostMapping("/setAdmin")

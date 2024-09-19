@@ -10,17 +10,17 @@ public class KafkaTopic {
 
     //todo refactor dummy
     @Bean
-    public NewTopic firstTopic() {
-        return TopicBuilder.name("topic-1")
+    public NewTopic archiveTopic() {
+        return TopicBuilder.name("archive")
                 .partitions(1)
                 .replicas(1)
                 .build();
     }
 
     @Bean
-    public NewTopic secondTopic() {
-        return TopicBuilder.name("topic-2")
-                .partitions(3)
+    public NewTopic actualTopic() {
+        return TopicBuilder.name("actual")
+                .partitions(1)
                 .replicas(1)
                 .build();
     }
