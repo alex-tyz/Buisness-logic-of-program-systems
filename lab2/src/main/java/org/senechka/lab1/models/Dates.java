@@ -26,10 +26,10 @@ public class Dates {
     private boolean isFree;
 
     @Column
-    private String fromCity;
+    private String fromcity;
 
     @Column
-    private String toCity;
+    private String tocity;
 
     @Column
     private int cost;

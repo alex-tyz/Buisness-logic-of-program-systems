@@ -39,8 +39,8 @@ public class PaymentController {
         Dates ticket = bookingService.getTicketById(ticketid);
         User user = userService.getByUsername(name);
         Ticket tickettosend = new Ticket(null, user.getId(),
-                ticket.getId(), ticket.getFromCity(),
-                ticket.getToCity(), ticket.getCost(),
+                ticket.getId(), ticket.getFromcity(),
+                ticket.getTocity(), ticket.getCost(),
                 Date.from(Instant.now().plusSeconds(EXPIRE_TIME_SEC)));
         messageService.sendTicketToActual(tickettosend);
     }

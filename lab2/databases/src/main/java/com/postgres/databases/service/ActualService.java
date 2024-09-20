@@ -32,15 +32,16 @@ public class ActualService {
 
     public void sendTicketToArchive(Ticket ticket){
         String ticketJson = configureTicketJSON(ticket);
+        log.info(ticketJson);
         kafkaSender.sendMessage(ticketJson, "archive");
     }
 
     public void setTicket(String data){
         Ticket ticket = new Gson().fromJson(data, Ticket.class);
         actualRepository.setTicket(ticket.getUserid(), ticket.getTicketid(),
-                ticket.getFromCity(), ticket.getToCity(), ticket.getCost(),
-                ticket.getExpireDate());
-        log.info("got ticket "+ ticket.getTicketid().toString() + ticket.getFromCity()+ ticket.getExpireDate().toString());
+                ticket.getFromcity(), ticket.getTocity(), ticket.getCost(),
+                ticket.getExpiredate());
+        log.info("got ticket "+ ticket.getTicketid().toString() + ticket.getFromcity()+ ticket.getExpiredate().toString());
     }
 
 

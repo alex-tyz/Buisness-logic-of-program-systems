@@ -16,13 +16,14 @@ public interface ActualRepository extends CrudRepository<Ticket,UUID> {
 
     @Query("INSERT INTO actual VALUES ( gen_random_uuid(), :userid, :ticketid, :fromcity, :tocity, :cost, :expiredate)")
     @Modifying
-    void setTicket(@Param("userid") UUID userid,@Param("ticketid") UUID ticketid,
+    void setTicket(@Param("userid") UUID userid, @Param("ticketid") UUID ticketid,
                    @Param("fromcity") String fromcity, @Param("tocity") String tocity, @Param("cost") int cost,
                    @Param("expiredate") Date exipredate);
 
 
     @Query("select uuid, userid, ticketid, fromcity, tocity, cost, expiredate from actual where expiredate <= current_timestamp")
     List<Ticket> getExpiredActuals();
+
 
     @Query("delete from actual where uuid = :uuid")
     @Modifying

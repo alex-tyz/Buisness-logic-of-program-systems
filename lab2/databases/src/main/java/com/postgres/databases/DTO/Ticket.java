@@ -22,12 +22,12 @@ public class Ticket {
     @Column
     private UUID ticketid;
     @Column
-    private String fromCity;
+    private String fromcity;
     @Column
-    private String toCity;
+    private String tocity;
     @Column
     private int cost;
     @Column
-    private Date expireDate;
+    private Date expiredate;
 
 }

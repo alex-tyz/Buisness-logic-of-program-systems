@@ -23,12 +23,12 @@ public class Ticket {
 
     private UUID ticketid;
 
-    private String fromCity;
+    private String fromcity;
 
-    private String toCity;
+    private String tocity;
 
     private int cost;
 
-    private Date expireDate;
+    private Date expiredate;
 
 }

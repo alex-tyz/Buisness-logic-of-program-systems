@@ -38,8 +38,8 @@ public class TicketController {
 
 
         //UUID _ticketid = paymentService.getCurrentTicketById(ticketid).getTicketid();
-        String fromcity = bookingService.getTicketById(ticketid).getFromCity();
-        String tocity = bookingService.getTicketById(ticketid).getToCity();
+        String fromcity = bookingService.getTicketById(ticketid).getFromcity();
+        String tocity = bookingService.getTicketById(ticketid).getTocity();
         String name = paymentService.getCurrentTransactionByTicketId(ticketid.toString()).getName();
         String surname = paymentService.getCurrentTransactionByTicketId(ticketid.toString()).getSurname();
         String date = bookingService.getTicketById(ticketid).getDate().toString();

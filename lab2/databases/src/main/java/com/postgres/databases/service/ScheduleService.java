@@ -29,7 +29,7 @@ public class ScheduleService {
     public void removeExpiredTickets() {
         log.info("started removing scheduled task");
         for (Ticket ticket : actualRepository.getExpiredActuals()) {
-            System.out.println(ticket.toString());
+            System.out.println("SCANED "+ticket.getTocity());
             actualService.sendTicketToArchive(ticket);
             actualRepository.deleteActualByUuid(ticket.getUuid());
         }
