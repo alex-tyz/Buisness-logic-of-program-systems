@@ -38,9 +38,9 @@ public class ActualService {
     public void setTicket(String data){
         Ticket ticket = new Gson().fromJson(data, Ticket.class);
         actualRepository.setTicket(ticket.getUserid(), ticket.getTicketid(),
-                ticket.getFromcity(), ticket.getTocity(), ticket.getCost(),
-                ticket.getExpiredate());
-        log.info("got ticket "+ ticket.getTicketid().toString());
+                ticket.getFromCity(), ticket.getToCity(), ticket.getCost(),
+                ticket.getExpireDate());
+        log.info("got ticket "+ ticket.getTicketid().toString() + ticket.getFromCity()+ ticket.getExpireDate().toString());
     }
 
 

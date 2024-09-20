@@ -19,6 +19,7 @@ public class KafkaListenerActual {
         log.info("Received message [{}] in group1", data);
 
         actualService.setTicket(data);
+
     }
 
 

@@ -9,8 +9,6 @@ import java.util.UUID;
 
 
 
-@Setter
-@Getter
 @AllArgsConstructor
 @Data
 public class Ticket {
@@ -24,12 +22,12 @@ public class Ticket {
     @Column
     private UUID ticketid;
     @Column
-    private String fromcity;
+    private String fromCity;
     @Column
-    private String tocity;
+    private String toCity;
     @Column
     private int cost;
     @Column
-    private Date expiredate;
+    private Date expireDate;
 
 }

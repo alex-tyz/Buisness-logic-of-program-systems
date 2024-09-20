@@ -3,10 +3,10 @@ create table actual
     uuid       UUID PRIMARY KEY,
     userid     UUID NOT NULL,
     ticketid   UUID NOT NULL,
-    fromCity   text,
-    toCity     text,
+    fromcity   text,
+    tocity     text,
     cost       int,
-    expireDate timestamp
+    expiredate timestamp
 );
 
 

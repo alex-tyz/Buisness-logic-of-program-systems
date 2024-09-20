@@ -18,8 +18,8 @@ public class ArchiveService {
     public void setTicket(String data){
         Ticket ticket = new Gson().fromJson(data, Ticket.class);
         archiveRepository.setTicket(ticket.getUserid(), ticket.getTicketid(),
-                ticket.getFromcity(), ticket.getTocity(), ticket.getCost(),
-                ticket.getDateofexpire());
+                ticket.getFromCity(), ticket.getToCity(), ticket.getCost(),
+                ticket.getExpireDate());
         log.info("got ticket "+ ticket.getTicketid().toString());
     }
 
