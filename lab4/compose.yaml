@@ -1,0 +1,118 @@
+services:
+  cassandra:
+    container_name: cassandra
+    image: 'cassandra:latest'
+    environment:
+      - 'CASSANDRA_DC=datacenter1'
+      - 'CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch'
+    ports:
+      - '9042:9042'
+    expose:
+      - '9042'
+    networks:
+      - myNetwork
+
+  actual:
+    container_name: actual
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "actualdb"
+      POSTGRES_USER: "actualdbuser"
+      POSTGRES_PASSWORD: "zxc"
+    volumes:
+      - ./script/actual:/docker-entrypoint-initdb.d
+    ports:
+      - "5431:5432"
+    networks:
+      - myNetwork
+
+
+
+  archive:
+    container_name: archive
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "archivedb"
+      POSTGRES_USER: "archivedbuser"
+      POSTGRES_PASSWORD: "zxc"
+    volumes:
+      - ./script/archive:/docker-entrypoint-initdb.d
+    ports:
+      - "5430:5432"
+    networks:
+      - myNetwork
+
+
+  actual_db:
+    container_name: actual_db
+    build:
+      context: ./databases
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://actual:5432/actualdb
+    ports:
+      - '8082:8080'
+    depends_on:
+      - actual
+      - kafka
+    networks:
+      - myNetwork
+
+  archive_db:
+    container_name: archive_db
+    build:
+      context: ./archive
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://archive:5432/archivedb
+    ports:
+      - '8081:8080'
+    depends_on:
+      - archive
+      - kafka
+    networks:
+      - myNetwork
+
+  backend:
+    container_name: xyu
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    networks:
+      - myNetwork
+    depends_on:
+      - cassandra
+    restart: always
+
+  zookeeper:
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - myNetwork
+    ports:
+      - 2181:2181
+
+  kafka:
+    image: confluentinc/cp-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - myNetwork
+
+networks:
+  myNetwork:
+    driver: bridge
