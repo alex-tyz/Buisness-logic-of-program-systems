@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -21,11 +21,12 @@ public class ScheduleService {
     @Autowired
     private ActualService actualService;
 
-    @Autowired
-    private KafkaSender kafkaSender;
-
 
     @Scheduled(cron = "1 * * * * *")
+    @Transactional
+    /* todo вынести deleteActualByUuid в сервис,
+                потому что навешивать транзакцию в репозитории не оч
+    */
     public void removeExpiredTickets() {
         log.info("started removing scheduled task");
         for (Ticket ticket : actualRepository.getExpiredActuals()) {

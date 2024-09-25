@@ -6,6 +6,7 @@ import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -27,6 +28,7 @@ public interface ActualRepository extends CrudRepository<Ticket,UUID> {
 
     @Query("delete from actual where uuid = :uuid")
     @Modifying
+// todo:    @Transactional(transactionManager = "jpaTransactionManager")
     void deleteActualByUuid(UUID uuid);
 
 }
