@@ -1,0 +1,17 @@
+{
+	"ulid": "01J91ZB90K016478GRTFJAK58D",
+	"minTime": 1727124183308,
+	"maxTime": 1727128800000,
+	"stats": {
+		"numSamples": 1225,
+		"numSeries": 5,
+		"numChunks": 11
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01J91ZB90K016478GRTFJAK58D"
+		]
+	},
+	"version": 1
+}

@@ -1,6 +1,6 @@
-#docker rm -f xyu
-#docker rmi lab4-backend
-#mvn clean install
+docker rm -f xyu
+docker rmi lab4-backend
+mvn clean install
 docker rm -f actual_db
 docker rmi lab4-actual_db
 cd databases
