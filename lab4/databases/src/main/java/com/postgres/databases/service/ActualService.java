@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -29,6 +30,7 @@ public class ActualService {
 
         return gson.toJson(ticket);
     }
+
 
     public void sendTicketToArchive(Ticket ticket){
         String ticketJson = configureTicketJSON(ticket);

@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Component
@@ -16,6 +17,7 @@ public class KafkaArchiveListener {
     @Autowired
     private ArchiveService archiveService;
 
+    @Transactional(transactionManager = "jdbcTransactionManager")
     @KafkaListener(topics = "archive", groupId = "group2")
     void listenerArchive(String data) {
         log.info("Received message [{}] in group2", data);
