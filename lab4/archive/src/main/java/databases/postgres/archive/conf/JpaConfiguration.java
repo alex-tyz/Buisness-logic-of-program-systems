@@ -4,6 +4,7 @@ package databases.postgres.archive.conf;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,7 @@ import java.util.Map;
 @Configuration
 @EnableJdbcRepositories("archive.repos")
 @EnableKafka
+
 public class JpaConfiguration {
 
     @Value("${spring.kafka.bootstrap-servers}")
@@ -35,22 +37,10 @@ public class JpaConfiguration {
     }
 
     @Bean
-    public JdbcTransactionManager jdbcTransactionManager() {
-        return new JdbcTransactionManager(dataSource());
+    public JdbcTransactionManager jdbcTransactionManager(DataSource dataSource) {
+        return new JdbcTransactionManager(dataSource);
     }
 
-    @Bean
-    //todo убрать хардкод
-    public DataSource dataSource() {
-        return DataSourceBuilder
-                .create()
-                .url("jdbc:postgresql://localhost:5430/archivedb")
-                .username("archivedbuser")
-                .driverClassName("org.postgresql.Driver")
-                .password("zxc")
-                .build();
-
-    }
     @Bean
     public ProducerFactory<String, String> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();

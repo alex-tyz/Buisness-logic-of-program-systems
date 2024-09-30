@@ -36,20 +36,8 @@ public class JpaConfiguration {
     }
 
     @Bean
-    public JdbcTransactionManager jdbcTransactionManager() {
-        return new JdbcTransactionManager(dataSource());
-    }
-
-    @Bean
-    public DataSource dataSource() {
-        return DataSourceBuilder
-                .create()
-                .url("jdbc:postgresql://localhost:5431/actualdb")
-                .username("actualdbuser")
-                .password("zxc")
-                .driverClassName("org.postgresql.Driver")
-                .build();
-
+    public JdbcTransactionManager jdbcTransactionManager(DataSource dataSource) {
+        return new JdbcTransactionManager(dataSource);
     }
 
     @Bean
