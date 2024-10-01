@@ -21,7 +21,6 @@ public class KafkaArchiveListener {
     @KafkaListener(topics = "archive", groupId = "group2")
     void listenerArchive(String data) {
         log.info("Received message [{}] in group2", data);
-
         archiveService.setTicket(data);
     }
 }

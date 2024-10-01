@@ -15,7 +15,7 @@ public class KafkaSender {
     public void sendMessage(String message, String topicName) {
         log.info("Sending : {}", message);
         log.info("--------------------------------");
-
+        System.out.println("+++3+++");
         kafkaTemplate.send(topicName, message);
     }
 }

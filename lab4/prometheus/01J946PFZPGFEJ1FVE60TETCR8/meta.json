@@ -1,0 +1,17 @@
+{
+	"ulid": "01J946PFZPGFEJ1FVE60TETCR8",
+	"minTime": 1727717024064,
+	"maxTime": 1727719200000,
+	"stats": {
+		"numSamples": 27325,
+		"numSeries": 186,
+		"numChunks": 343
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01J946PFZPGFEJ1FVE60TETCR8"
+		]
+	},
+	"version": 1
+}

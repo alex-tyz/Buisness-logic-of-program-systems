@@ -28,7 +28,7 @@ public interface ActualRepository extends CrudRepository<Ticket,UUID> {
 
     @Query("delete from actual where uuid = :uuid")
     @Modifying
-// todo:    @Transactional(transactionManager = "jpaTransactionManager")
+    @Transactional(transactionManager = "jpaTransactionManager")
     void deleteActualByUuid(UUID uuid);
 
 }

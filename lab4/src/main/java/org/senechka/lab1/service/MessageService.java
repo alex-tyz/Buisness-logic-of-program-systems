@@ -21,6 +21,7 @@ public class MessageService {
 
     public void sendTicketToActual(Ticket ticket){
         String ticketJson = configureTicketJSON(ticket);
+        System.out.println("+++2+++");
         kafkaSender.sendMessage(ticketJson, "actual");
     }
 }

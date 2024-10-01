@@ -36,12 +36,16 @@ public class PaymentController {
     @GetMapping("/buy/{ticketid}")
     public void setTransaction(@PathVariable UUID ticketid, @RequestParam String name, @RequestParam String surname, @RequestParam String mail) {
         paymentService.setCurrentTicket(name, surname, ticketid.toString(), mail);
+        System.out.println("+++1.1+++");
         Dates ticket = bookingService.getTicketById(ticketid);
+        System.out.println("+++1.2+++");
         User user = userService.getByUsername(name);
+        System.out.println("+++1.3+++");
         Ticket tickettosend = new Ticket(null, user.getId(),
                 ticket.getId(), ticket.getFromcity(),
                 ticket.getTocity(), ticket.getCost(),
                 Date.from(Instant.now().plusSeconds(EXPIRE_TIME_SEC)));
+        System.out.println("+++1.4+++");
         messageService.sendTicketToActual(tickettosend);
     }
 
