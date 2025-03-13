@@ -11,10 +11,13 @@ import java.util.UUID;
 
 @Repository
 public interface AdminRepository extends CassandraRepository<User, UUID> {
+
     @Query("SELECT * FROM user WHERE username = :username ALLOW FILTERING")
     Optional<User> getUserByUsername(@Param("username") String username);
 
-
-    @Query("UPDATE user set role = 'ROLE_ADMIN' WHERE id = :id")
+    @Query("UPDATE user SET role = 'ROLE_ADMIN' WHERE id = :id")
     void setAdminById(@Param("id") UUID id);
+
+    @Query("SELECT COUNT(*) FROM user WHERE username = :username ALLOW FILTERING")
+    long countByUsername(@Param("username") String username);
 }
