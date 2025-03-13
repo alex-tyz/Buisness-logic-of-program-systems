@@ -11,8 +11,6 @@ import java.util.UUID;
 
 public interface TicketRepositiry extends CassandraRepository<Dates, String> {
 
-
-
     @Query("SELECT * FROM dates WHERE fromcity = :name ALLOW FILTERING")
     List<Dates> findByName(@Param("name") String name);
 
@@ -28,5 +26,7 @@ public interface TicketRepositiry extends CassandraRepository<Dates, String> {
     @Query("UPDATE dates set isfree = False WHERE id = :id")
     void setUnableToBuyTicket(@Param("id") UUID id);
 
+    @Query("SELECT * FROM dates WHERE isfree = true ALLOW FILTERING")
+    List<Dates> findAllFreeTickets();
 
 }
