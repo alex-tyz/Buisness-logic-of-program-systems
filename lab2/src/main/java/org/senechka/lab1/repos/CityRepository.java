@@ -16,4 +16,7 @@ public interface CityRepository extends CassandraRepository<City, UUID> {
 
     @Query("SELECT * FROM city WHERE rating > :min AND rating < :max ALLOW FILTERING")
     List<City> findByRating(@Param("min") float min, @Param("max") float max);
+
+    @Query("SELECT * FROM city WHERE country = :country ALLOW FILTERING")
+    List<City> findByCountry(@Param("country") String country);
 }
