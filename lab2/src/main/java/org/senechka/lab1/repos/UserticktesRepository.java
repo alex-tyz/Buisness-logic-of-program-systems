@@ -27,4 +27,7 @@ public interface UserticktesRepository extends CassandraRepository<UserTickets, 
 
     @Query("SELECT * FROM usertickets")
     List<UserTickets> getAllTickets();
+
+    @Query("DELETE FROM usertickets WHERE ticketid = :ticketid")
+    void deleteTicketById(@Param("ticketid") String ticketid);
 }
